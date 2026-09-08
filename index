@@ -1,0 +1,556 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap');
+
+  :root {
+    --paper: #efe9dd;
+    --paper-card: #fbf9f4;
+    --ink: #262420;
+    --ink-soft: #635e54;
+    --ink-faint: #8b8578;
+    --line: #ddd4c1;
+    --line-soft: #e8e1d1;
+    --accent-mobility: #5f7248;
+    --accent-mobility-bg: #eaeee1;
+    --accent-ergo: #4d6c78;
+    --accent-ergo-bg: #e5edef;
+    --accent-energy: #a97a2e;
+    --accent-energy-bg: #f3e9d5;
+    --accent-evening: #715081;
+    --accent-evening-bg: #ece3ef;
+    --shadow: 0 1px 2px rgba(38,36,32,0.06), 0 4px 14px rgba(38,36,32,0.05);
+    --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #1c1b18;
+      --paper-card: #24231f;
+      --ink: #ece7db;
+      --ink-soft: #b6b0a1;
+      --ink-faint: #857f70;
+      --line: #3a382f;
+      --line-soft: #322f28;
+      --accent-mobility: #9fb480;
+      --accent-mobility-bg: #2a2e22;
+      --accent-ergo: #8fb4c0;
+      --accent-ergo-bg: #212b2d;
+      --accent-energy: #dcaa5c;
+      --accent-energy-bg: #2f2617;
+      --accent-evening: #bd9bcb;
+      --accent-evening-bg: #2a2230;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.25);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #1c1b18;
+    --paper-card: #24231f;
+    --ink: #ece7db;
+    --ink-soft: #b6b0a1;
+    --ink-faint: #857f70;
+    --line: #3a382f;
+    --line-soft: #322f28;
+    --accent-mobility: #9fb480;
+    --accent-mobility-bg: #2a2e22;
+    --accent-ergo: #8fb4c0;
+    --accent-ergo-bg: #212b2d;
+    --accent-energy: #dcaa5c;
+    --accent-energy-bg: #2f2617;
+    --accent-evening: #bd9bcb;
+    --accent-evening-bg: #2a2230;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.25);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 20px 80px;
+  }
+
+  /* ---- Header ---- */
+  header {
+    padding: 56px 0 28px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 28px;
+  }
+
+  .kicker {
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    margin: 0 0 10px;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(2rem, 5vw, 2.9rem);
+    line-height: 1.08;
+    margin: 0 0 14px;
+    letter-spacing: -0.01em;
+  }
+
+  .deck {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+    max-width: 46ch;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* ---- Search + filters ---- */
+  .controls {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--paper);
+    padding: 18px 0 14px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 8px;
+  }
+
+  .search-row {
+    position: relative;
+    margin-bottom: 12px;
+  }
+
+  .search-row svg {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    stroke: var(--ink-faint);
+    pointer-events: none;
+  }
+
+  #search {
+    width: 100%;
+    font-family: var(--sans);
+    font-size: 1rem;
+    color: var(--ink);
+    background: var(--paper-card);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 12px 14px 12px 40px;
+    outline: none;
+    transition: border-color 0.15s ease;
+  }
+
+  #search::placeholder { color: var(--ink-faint); }
+
+  #search:focus {
+    border-color: var(--ink-soft);
+  }
+
+  .pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .pill {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    background: var(--paper-card);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 7px 14px;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    line-height: 1.3;
+  }
+
+  .pill:hover { border-color: var(--ink-faint); }
+
+  .pill[aria-pressed="true"] {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  .pill .count {
+    color: var(--ink-faint);
+    margin-left: 3px;
+  }
+  .pill[aria-pressed="true"] .count { color: var(--paper); opacity: 0.65; }
+
+  .result-note {
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    margin: 14px 2px 0;
+    min-height: 1.2em;
+  }
+
+  /* ---- Category sections ---- */
+  .category {
+    margin-top: 40px;
+  }
+
+  .category-head {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .category-head .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    flex: none;
+  }
+
+  .category-head h2 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 1.35rem;
+    margin: 0;
+  }
+
+  .category-head .tally {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+  }
+
+  /* ---- Cards ---- */
+  .card {
+    background: var(--paper-card);
+    border: 1px solid var(--line-soft);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    margin-bottom: 14px;
+    overflow: hidden;
+    display: flex;
+  }
+
+  .card-tab {
+    flex: none;
+    width: 46px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 18px;
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .card-body {
+    flex: 1;
+    padding: 16px 18px 17px 4px;
+    min-width: 0;
+  }
+
+  .card-title {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 1.12rem;
+    margin: 0 0 8px;
+    line-height: 1.3;
+  }
+
+  .card-action, .card-why {
+    font-size: 0.93rem;
+    line-height: 1.58;
+    margin: 0;
+  }
+
+  .card-action {
+    color: var(--ink);
+    background: var(--line-soft);
+    border-radius: 6px;
+    padding: 9px 11px;
+    margin-bottom: 9px;
+  }
+
+  .card-action b, .card-why b {
+    font-weight: 600;
+  }
+
+  .card-why { color: var(--ink-soft); }
+
+  mark {
+    background: none;
+    color: inherit;
+    font-weight: 700;
+    box-shadow: inset 0 -0.35em 0 var(--mark-color, rgba(169,122,46,0.35));
+  }
+
+  .empty-state {
+    display: none;
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--ink-faint);
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.1rem;
+  }
+
+  footer {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+  }
+
+  @media (max-width: 480px) {
+    header { padding-top: 40px; }
+    .card-tab { width: 36px; padding-top: 16px; font-size: 0.85rem; }
+    .card-body { padding: 14px 14px 15px 2px; }
+  }
+
+</style>
+
+<div class="wrap">
+
+  <header>
+    <p class="kicker">Reference guide</p>
+    <h1>Micro-Habits Field Guide</h1>
+    <p class="deck">Twenty small, body-first habits for relieving tension, restoring energy, and winding down — collected from the newsletter, all in one place you can search back through.</p>
+  </header>
+
+  <div class="controls">
+    <div class="search-row">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input id="search" type="text" placeholder="Search by feeling, body part, or keyword…" autocomplete="off">
+    </div>
+    <div class="pills" id="pills"></div>
+    <p class="result-note" id="resultNote"></p>
+  </div>
+
+  <div id="categories"></div>
+
+  <p class="empty-state" id="emptyState">No habits match that search — try a different word.</p>
+
+  <footer>Keep this page bookmarked, or forward the link to a friend who wants a copy too.</footer>
+</div>
+
+<script>
+  const DATA = [
+    { cat: "mobility", num: 1, title: "Ankle Circles & Alphabet Tracing",
+      action: "While seated or lying down, lift one foot and trace 10 full circles clockwise and counter-clockwise with your big toe. For extra engagement, \u201cwrite\u201d the alphabet A to Z in the air before switching feet.",
+      why: "Joint cartilage lacks direct blood supply and relies on movement to pump nutrient-rich synovial fluid. Ankle mobility absorbs shock during walking and prevents compensatory stress in the knees, hips, and lower back." },
+    { cat: "mobility", num: 2, title: "The Open-Book Stretch",
+      action: "Lie on your side with knees bent at 90 degrees and arms stacked in front. Slowly sweep your top arm open like a book, letting your head follow, until your upper back opens toward the bed or floor. Hold 2 seconds, repeat 5 times per side.",
+      why: "Frees rotation in the thoracic spine (mid-back), preventing the lower back and shoulders from overcompensating and reducing tight upper-body posture." },
+    { cat: "mobility", num: 3, title: "Seated Spinal Twists",
+      action: "Sit tall on the front edge of a sturdy chair. Inhale to lengthen your spine, then exhale as you gently rotate your torso right, placing your left hand on your right knee. Hold for 3\u20135 breaths and switch sides.",
+      why: "Gently wrings out intervertebral discs through fluid imbibition, flushing stale metabolic waste and drawing fresh, hydrating fluid into spinal cartilage to ease stiffness." },
+    { cat: "mobility", num: 4, title: "The Sightline Reset",
+      action: "Sit up tall, look straight ahead, and pull your chin gently straight back (creating a slight \u201cdouble chin\u201d) without tilting your head down. Hold for 3 seconds, release, and repeat 5 times.",
+      why: "Decompresses the suboccipital muscles at the base of the skull, counteracting \u201ctech neck\u201d and restoring proper cervical spine alignment." },
+
+    { cat: "ergo", num: 5, title: "The Micro-Shakeout",
+      action: "Stand up, drop your arms loose, and softly bounce on your heels for 30 seconds. Let your hands, shoulders, and jaw dangle completely heavy and shake freely.",
+      why: "Mimics the natural neurological reset animals use after stress, dumping static muscle contraction in the upper traps and circulating lymphatic fluid." },
+    { cat: "ergo", num: 6, title: "The Doorway Chest Stretch",
+      action: "Stand in an open doorway with forearms vertical against the frame at 90-degree elbow angles. Step one foot forward until you feel a gentle chest stretch. Hold for 20\u201330 seconds.",
+      why: "Opens shortened pectoral muscles, reversing forward shoulder roundedness, improving lung expansion, and relieving tension across the upper back." },
+    { cat: "ergo", num: 7, title: "The Jaw Unclench",
+      action: "Rest the tip of your tongue gently against the roof of your mouth just behind your front teeth, letting your teeth part slightly and your lower jaw hang loose.",
+      why: "Disengages the masseter and temporalis muscles, preventing unconscious teeth grinding and relieving strain that travels down into the neck and shoulders." },
+    { cat: "ergo", num: 8, title: "The Glabella Press",
+      action: "Apply firm, steady thumb or finger pressure to the spot right between your eyebrows for 30\u201345 seconds while taking deep, slow breaths.",
+      why: "Stimulates sensory nerve fibers near the trigeminal nerve, releasing localized endorphins and melting forehead, temple, and eye tension." },
+    { cat: "ergo", num: 9, title: "The Sip & Swish Method",
+      action: "After drinking coffee, tea, or citrus drinks, swish plain water around your mouth for 10 seconds before swallowing, and delay brushing for 30 minutes.",
+      why: "Neutralizes dietary acids immediately to preserve delicate tooth enamel, which remains temporarily softened and vulnerable to abrasive brushing right after acid exposure." },
+
+    { cat: "energy", num: 10, title: "The Physiological Sigh",
+      action: "Take two quick inhales through your nose (one deep breath plus one short extra sniff), then exhale slowly and completely through your mouth. Repeat 2\u20133 times.",
+      why: "Re-inflates collapsed lung alveoli, rapidly offloads excess carbon dioxide, and restores nervous system calm and mental focus within seconds." },
+    { cat: "energy", num: 11, title: "The 10-Second Cold-Water Wrist Dip",
+      action: "Run cold tap water over the insides of your wrists for 10\u201315 seconds when afternoon fatigue sets in, then dab a little on the back of your neck.",
+      why: "Cold water on shallow pulse points triggers a harmless sensory spike in norepinephrine, sharpening mental clarity without relying on extra caffeine." },
+    { cat: "energy", num: 12, title: "The 20-20-20 Eye Reset",
+      action: "Every 20\u201330 minutes of screen or reading time, look at an object 20 feet away for 20 seconds while taking two relaxed breaths.",
+      why: "Relaxes contracted ciliary eye muscles, breaking the focal strain loop that causes afternoon eye fatigue and mental sluggishness." },
+    { cat: "energy", num: 13, title: "The Soleus Pushup",
+      action: "While sitting with feet flat, lift your heels while keeping toes planted, then let heels drop back down. Repeat rhythmically while reading or working.",
+      why: "Activates the soleus muscle in the calf, which uniquely elevates local tissue metabolism and glucose oxidation without causing systemic fatigue." },
+    { cat: "energy", num: 14, title: "Thumb-to-Fingertip Taps",
+      action: "Tap your thumb rapidly to index, middle, ring, and pinky fingers, then reverse. Do both hands together for 30 seconds.",
+      why: "Stimulates fine motor cortex pathways, encouraging cross-hemispheric brain coordination and instantly sharpening focus during tasks." },
+    { cat: "energy", num: 15, title: "The Palming Technique",
+      action: "Rub your hands briskly to generate warmth, then cup your palms gently over closed eyes without pressing the eyelids. Relax in dark warmth for 30 seconds.",
+      why: "Gives photoreceptors complete visual rest and soothing thermal comfort, relaxing ocular muscles and reducing visual overstimulation." },
+    { cat: "energy", num: 21, title: "The Morning Light Reset",
+      action: "Within 30\u201360 minutes of waking up, step outside without sunglasses for 5\u201310 minutes (or sit by a bright window facing outside) and let natural morning light hit your eyes.",
+      why: "Morning sunlight's blue-spectrum light stimulates ipRGCs (specialized retinal cells) that signal your suprachiasmatic nucleus \u2014 your brain's master clock \u2014 triggering a healthy morning cortisol spike for alertness and setting a timer for melatonin release roughly 12\u201314 hours later, for effortless sleep at night." },
+
+    { cat: "evening", num: 16, title: "Box Breathing (4x4 Rhythm)",
+      action: "Inhale through your nose for 4 counts, hold for 4, exhale through your mouth for 4, hold empty for 4. Repeat 3\u20134 cycles.",
+      why: "Stimulates vagal tone and balances oxygen and CO2 levels, sending a clear biological signal that lowers cortisol and heart rate." },
+    { cat: "evening", num: 17, title: "Legs-Up-the-Wall (Passive Inversion)",
+      action: "Lie on your back near a wall, slide your hips close, and extend your legs straight up vertically against the wall for 5\u201310 minutes before bed.",
+      why: "Encourages venous return and lymphatic drainage while triggering cardiovascular baroreceptors that switch the body into deep parasympathetic recovery." },
+    { cat: "evening", num: 18, title: "The Left-Side Lie",
+      action: "Roll onto your left side with knees pulled up comfortably and a soft pillow placed between your knees for spinal alignment.",
+      why: "Aligns internal anatomy to keep stomach acid lower than the esophagus, reducing reflux, and takes pressure off the inferior vena cava for smooth nighttime circulation." },
+    { cat: "evening", num: 19, title: "Bedside Brain Dumping",
+      action: "Write down every task, lingering thought, or worry on a notepad by your bed 30 minutes before sleep until your head feels clear.",
+      why: "Overcomes the Zeigarnik effect, where the brain loops unfinished tasks in active memory, by storing thoughts safely on paper and allowing the mind to rest." },
+    { cat: "evening", num: 20, title: "Warm Socks at Bedside",
+      action: "Slip on a pair of soft, loose warm socks 20\u201330 minutes before sleep.",
+      why: "Dilates blood vessels in the feet, allowing the body to shed internal core heat quickly \u2014 a biological requirement for falling asleep fast." },
+  ];
+
+  const CATEGORIES = [
+    { id: "mobility", label: "Mobility & joints", var: "--accent-mobility" },
+    { id: "ergo",     label: "Tension & posture", var: "--accent-ergo" },
+    { id: "energy",   label: "Energy & focus", var: "--accent-energy" },
+    { id: "evening",  label: "Evening wind-down", var: "--accent-evening" },
+  ];
+
+  const catsEl = document.getElementById('categories');
+  const pillsEl = document.getElementById('pills');
+  const noteEl = document.getElementById('resultNote');
+  const emptyEl = document.getElementById('emptyState');
+  const searchEl = document.getElementById('search');
+
+  let activeCat = 'all';
+
+  // Build category filter pills
+  function pillCount(id) {
+    return id === 'all' ? DATA.length : DATA.filter(d => d.cat === id).length;
+  }
+  const allPill = document.createElement('button');
+  allPill.className = 'pill';
+  allPill.type = 'button';
+  allPill.setAttribute('aria-pressed', 'true');
+  allPill.innerHTML = `All <span class="count">${pillCount('all')}</span>`;
+  allPill.addEventListener('click', () => setActive('all'));
+  pillsEl.appendChild(allPill);
+
+  CATEGORIES.forEach(c => {
+    const p = document.createElement('button');
+    p.className = 'pill';
+    p.type = 'button';
+    p.dataset.cat = c.id;
+    p.setAttribute('aria-pressed', 'false');
+    p.innerHTML = `${c.label} <span class="count">${pillCount(c.id)}</span>`;
+    p.addEventListener('click', () => setActive(c.id));
+    pillsEl.appendChild(p);
+  });
+
+  function setActive(id) {
+    activeCat = id;
+    [allPill, ...pillsEl.querySelectorAll('[data-cat]')].forEach(p => {
+      const pid = p.dataset.cat || 'all';
+      p.setAttribute('aria-pressed', String(pid === id));
+    });
+    render();
+  }
+
+  // Build category sections + cards
+  const sectionEls = {};
+  const cardEls = [];
+
+  CATEGORIES.forEach(c => {
+    const section = document.createElement('section');
+    section.className = 'category';
+    section.dataset.cat = c.id;
+
+    const head = document.createElement('div');
+    head.className = 'category-head';
+    const dot = document.createElement('span');
+    dot.className = 'dot';
+    dot.style.background = `var(${c.var})`;
+    const h2 = document.createElement('h2');
+    h2.textContent = c.label;
+    const tally = document.createElement('span');
+    tally.className = 'tally';
+    const items = DATA.filter(d => d.cat === c.id);
+    tally.textContent = items.length + (items.length === 1 ? ' habit' : ' habits');
+    head.appendChild(dot);
+    head.appendChild(h2);
+    head.appendChild(tally);
+    section.appendChild(head);
+
+    items.forEach(item => {
+      const card = document.createElement('article');
+      card.className = 'card';
+      card.dataset.cat = item.cat;
+      card.dataset.search = (item.title + ' ' + item.action + ' ' + item.why).toLowerCase();
+
+      const tab = document.createElement('div');
+      tab.className = 'card-tab';
+      tab.style.background = `var(${c.var}-bg)`;
+      tab.style.color = `var(${c.var})`;
+      tab.textContent = item.num;
+
+      const body = document.createElement('div');
+      body.className = 'card-body';
+
+      const title = document.createElement('h3');
+      title.className = 'card-title';
+      title.textContent = item.title;
+
+      const action = document.createElement('p');
+      action.className = 'card-action';
+      action.innerHTML = '<b>Do this: </b>' + item.action;
+
+      const why = document.createElement('p');
+      why.className = 'card-why';
+      why.innerHTML = '<b>Why: </b>' + item.why;
+
+      body.appendChild(title);
+      body.appendChild(action);
+      body.appendChild(why);
+      card.appendChild(tab);
+      card.appendChild(body);
+      section.appendChild(card);
+      cardEls.push(card);
+    });
+
+    catsEl.appendChild(section);
+    sectionEls[c.id] = section;
+  });
+
+  function render() {
+    const q = searchEl.value.trim().toLowerCase();
+    let visibleTotal = 0;
+
+    CATEGORIES.forEach(c => {
+      let visibleInCat = 0;
+      sectionEls[c.id].querySelectorAll('.card').forEach(card => {
+        const matchesCat = activeCat === 'all' || activeCat === c.id;
+        const matchesSearch = !q || card.dataset.search.includes(q);
+        const show = matchesCat && matchesSearch;
+        card.style.display = show ? 'flex' : 'none';
+        if (show) visibleInCat++;
+      });
+      sectionEls[c.id].style.display = visibleInCat > 0 ? '' : 'none';
+      visibleTotal += visibleInCat;
+    });
+
+    emptyEl.style.display = visibleTotal === 0 ? 'block' : 'none';
+
+    if (q) {
+      noteEl.textContent = `${visibleTotal} ${visibleTotal === 1 ? 'habit' : 'habits'} match \u201c${searchEl.value.trim()}\u201d`;
+    } else {
+      noteEl.textContent = '';
+    }
+  }
+
+  searchEl.addEventListener('input', render);
+  render();
+</script>
