@@ -331,7 +331,7 @@
   <header>
     <p class="kicker">Reference guide</p>
     <h1>Micro-Habits Field Guide</h1>
-    <p class="deck">Twenty small, body-first habits for relieving tension, restoring energy, and winding down — collected from the newsletter, all in one place you can search back through.</p>
+    <p class="deck" id="deckText">Small, body-first habits for relieving tension, restoring energy, and winding down — collected from the newsletter, all in one place you can search back through.</p>
   </header>
 
   <div class="controls">
@@ -432,6 +432,9 @@
   const noteEl = document.getElementById('resultNote');
   const emptyEl = document.getElementById('emptyState');
   const searchEl = document.getElementById('search');
+  const deckEl = document.getElementById('deckText');
+
+  deckEl.textContent = `${DATA.length} small, body-first habits for relieving tension, restoring energy, and winding down \u2014 collected from the newsletter, all in one place you can search back through.`;
 
   let activeCat = 'all';
 
